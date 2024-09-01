@@ -1,36 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <Configuration status="INFO">
-    <Properties>
-        <!-- Define a placeholder for the log file name -->
-        <Property name="logfilename">app</Property>
-    </Properties>
-
     <Appenders>
-        <Console name="Console-Appender-Pattern-Layout" target="SYSTEM_OUT">
-            <PatternLayout pattern=" %d{HH:mm:ss.SSS}[%t] %-5level %logger{36} - %msg%n"/>
+        <Console name="LogToConsole" target="SYSTEM_OUT">
+            <PatternLayout>
+                <Pattern>%d{HH:mm:ss.SSS}[%t] %-5level %logger{36} - %msg%n </Pattern >
+            </PatternLayout>
         </Console>
-
-        <File name="File-Appender-Html-Layout" fileName="./logs/${logfilename}.html">
-            <HTMLLayout/>
-        </File>
-
-        <RollingFile name="Rolling-File-Appender-Pattern-Layout" fileName="./logs/${logfilename}.log" filePattern="logs/${logfilename}-%d{yyyy-MM-dd}.log">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-            <!--Policy to state rolling to one day(every day same time) and max 20 logs can be stored
-            at a particular instance-->
-            <Policies>
-                <!-- daily rolling -->
-                <TimeBasedTriggeringPolicy interval="1"	modulate="true" />
-            </Policies>
-            <DefaultRolloverStrategy max="20"/>
-        </RollingFile>
     </Appenders>
-
-    <Loggers>
+    <Logger>
         <Root level="INFO">
-            <AppenderRef ref="Console-Appender-Pattern-Layout"/>
-            <AppenderRef ref="File-Appender-Html-Layout"/>
-            <AppenderRef ref="Rolling-File-Appender-Pattern-Layout"/>
+            <AppenderRef ref="LogToConsole"/>
         </Root>
-    </Loggers>
+    </Logger>
 </Configuration>
+
